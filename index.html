@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Authentic Quranic Ruqyah verses for spiritual healing, protection, and well-being — search by reference, purpose, or category. Includes scholarly references, dark mode, favorites, and URL sharing." />
+  <meta name="keywords" content="Ruqyah, Quranic healing, Islamic spirituality, protection, jinn expulsion, Ayatul Kursi" />
+  <meta name="author" content="RuqyahVerse" />
+  <meta name="theme-color" content="#1a6d5e" />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Ruqyah Shariyah | Quranic Healing & Protection" />
+  <meta property="og:description" content="A comprehensive guide to authentic Ruqyah verses for protection, love, and spiritual strength. With dark mode, favorites, and search." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ruqyahverse.example.com" />
+  <meta property="og:image" content="https://ruqyahverse.example.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://ruqyahverse.example.com" />
+  
+  <title>Ruqyah Shariyah | Quranic Healing & Protection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* additional inline styles for dark mode and enhancements – will merge with external style.css but provide fallback */
+    :root {
+      --bg-body: #fefcf5;
+      --bg-surface: #ffffff;
+      --text-dark: #1f2a3a;
+      --text-muted: #4a5b6e;
+      --border-light: #e9e2d4;
+      --primary: #1a6d5e;
+      --gold: #c9a03d;
+    }
+    body.dark {
+      --bg-body: #121212;
+      --bg-surface: #1e1e2f;
+      --text-dark: #eef2ff;
+      --text-muted: #a0a8b8;
+      --border-light: #2a2a3a;
+      --primary: #2d9c86;
+      --gold: #e6b84e;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+    }
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-light);
+      border-radius: 2rem;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+    }
+    .stats-dashboard {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      background: var(--bg-surface);
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+    .favorite-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform 0.1s;
+    }
+    .favorite-btn.active {
+      color: #eab308;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .theme-toggle {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="container">
+    <nav class="glass-nav">
+      <div class="logo">Ruqyah<span>Verse</span></div>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="#">Home</a>
+        <a href="#verses">All Verses</a>
+        <a href="#about">What is Ruqyah?</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-badge">Authentic Quranic Healing</div>
+      <h1>Quranic <span>Healing</span></h1>
+      <p>A comprehensive guide to authentic Ruqyah verses, organized into categories for protection, love, jinn expulsion, and spiritual strength.</p>
+    </header>
+
+    <main id="main-content">
+      <div class="section-header" id="verses">
+        <h2 class="section-title">📖 Ruqyah Verses & Their Purposes</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Stats Dashboard -->
+      <div class="stats-dashboard" id="statsDashboard"></div>
+
+      <div class="toolbar">
+        <div class="search-wrapper">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <label for="searchInput" class="visually-hidden">Search verses</label>
+          <input type="text" id="searchInput" class="search-box" placeholder="Search by verse, purpose, or category..." autocomplete="off" aria-label="Search verses" />
+          <button class="clear-search" id="clearSearchBtn" aria-label="Clear search">✕</button>
+        </div>
+        <div class="filter-strip">
+          <div id="filter-buttons" class="filter-buttons"></div>
+        </div>
+        <div class="stats-row" id="resultStats"></div>
+      </div>
+
+      <div class="cards" id="cards-container"></div>
+    </main>
+
+    <section class="about-section" id="about">
+      <div class="about-card">
+        <h2>✨ What is Ruqyah?</h2>
+        <p>Ruqyah is the Islamic practice of reciting Quranic verses and authentic supplications to seek healing from spiritual and physical ailments. It is a Sunnah taught by Prophet Muhammad ﷺ and must be based solely on the Quran and authentic Sunnah, free from shirk and innovation.</p>
+        <div class="about-footnote">“And We send down of the Quran that which is healing and mercy for the believers.” (Al-Isra 17:82)</div>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--gold);">⚠️ Note: The purposes listed are derived from traditional Ruqyah references; always consult a qualified scholar for serious cases.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2026 RuqyahVerse · Built with ♥ for authentic healing | Quranic references for spiritual well-being</p>
+  </footer>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <script>
+    /******************************************************
+     *  ENHANCED RUQYAH DATASET with scholarly source notes
+     ******************************************************/
+    const verses = [
+      // Foundational
+      { reference: "Al-Fatiha (1:1–7)", purpose: "The Opening – essential for all Ruqyah", category: "Foundational", source: "Sahih Bukhari, authentic" },
+      { reference: "Al-Baqarah (2:255)", purpose: "Ayatul Kursi – the greatest verse of protection", category: "Foundational", source: "Sahih Muslim" },
+      { reference: "Al-Ikhlas (112:1–4)", purpose: "The Sincerity – equivalent to one third of the Quran", category: "Foundational", source: "Sahih Bukhari" },
+      { reference: "Al-Falaq (113:1–5)", purpose: "The Daybreak – seeking refuge from all evil", category: "Foundational", source: "Sahih Muslim" },
+      { reference: "An-Nas (114:1–6)", purpose: "Mankind – seeking refuge from whispers of jinn and men", category: "Foundational", source: "Sahih Muslim" },
+      { reference: "Bismillah", purpose: "The phrase of blessing and beginning of every good", category: "Foundational", source: "Quran & Sunnah" },
+      // Protection & Silencing
+      { reference: "Ya-Sin (36:9)", purpose: "Divine barrier against those who reject truth", category: "Protection & Silencing", source: "Traditional Ruqyah" },
+      { reference: "Al-Mursalat (77:35)", purpose: "Silence before the reckoning", category: "Protection & Silencing", source: "Traditional" },
+      { reference: "Al-Baqarah (2:137)", purpose: "Steadfastness in the face of opposition", category: "Protection & Silencing", source: "Tafsir" },
+      { reference: "Yusuf (12:64)", purpose: "Allah is the best guardian, and He is the Most Merciful", category: "Protection & Silencing", source: "Quran" },
+      { reference: "Ar-Ra'd (13:11)", purpose: "Allah does not change a people's condition until they change", category: "Protection & Silencing", source: "Quran" },
+      { reference: "Al-Hijr (15:17)", purpose: "Protection from every rebellious devil", category: "Protection & Silencing", source: "Quran" },
+      { reference: "As-Saffat (37:7)", purpose: "Shielded from eavesdropping devils", category: "Protection & Silencing", source: "Quran" },
+      { reference: "At-Tariq (86:4)", purpose: "Every soul has a guardian over it", category: "Protection & Silencing", source: "Quran" },
+      // Subduing Enemies
+      { reference: "Hud (11:102)", purpose: "Allah seizes tyrants with severe seizure", category: "Subduing Enemies", source: "Quran" },
+      { reference: "Ghafir (40:21)", purpose: "The end of those who rejected the signs", category: "Subduing Enemies", source: "Quran" },
+      { reference: "Al-An'am (6:45)", purpose: "The roots of wrongdoers cut off", category: "Subduing Enemies", source: "Quran" },
+      { reference: "Ya-Sin (36:28–32)", purpose: "Divine justice against those who reject messengers", category: "Subduing Enemies", source: "Quran" },
+      { reference: "Al-Hijr (15:95)", purpose: "Indeed, We are sufficient for you against the mockers", category: "Subduing Enemies", source: "Quran" },
+      // Love & Harmony
+      { reference: "Fussilat (41:11)", purpose: "Come, willingly or by compulsion – decree of divine will", category: "Love & Harmony", source: "Tafsir" },
+      { reference: "Al-Baqarah (2:165)", purpose: "Those who believe are strongest in love for Allah", category: "Love & Harmony", source: "Quran" },
+      { reference: "Al-Anfal (8:63)", purpose: "Allah united their hearts; had you spent all wealth, you could not have", category: "Love & Harmony", source: "Quran" },
+      { reference: "Ta-Ha (20:39)", purpose: "Divine love and care in protection", category: "Love & Harmony", source: "Quran" },
+      { reference: "Aal-e-Imran (3:26–27)", purpose: "Allah gives sovereignty to whom He wills and takes it away", category: "Love & Harmony", source: "Quran" },
+      // Breaking Knots
+      { reference: "Al-An'am (6:59)", purpose: "With Him are the keys of the unseen; none knows them except Him", category: "Breaking Knots", source: "Quran" },
+      { reference: "Yusuf (12:101)", purpose: "You are my protector in this world and the Hereafter", category: "Breaking Knots", source: "Quran" },
+      { reference: "Al-Baqarah (2:72–73)", purpose: "Allah brings forth what you conceal; the dead are brought to life by His command", category: "Breaking Knots", source: "Quran" },
+      // Jinn Expulsion
+      { reference: "An-Naml (27:30–31)", purpose: "The letter of Sulayman (AS); submission to divine authority", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "An-Naml (27:39)", purpose: "The jinn who offered to bring the throne before Sulayman rose", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "Al-Mu'minun (23:80)", purpose: "He who gives life and causes death; to Him is your return", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "Ghafir (40:68)", purpose: "Be, and it is – His command is truth", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "Al-A'raf (7:54)", purpose: "His command descends between the heavens and earth", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "Aal-e-Imran (3:49)", purpose: "Jesus (AS) breathes into clay birds by Allah's permission", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "Ar-Rum (30:25)", purpose: "His signs in the heavens and earth", category: "Jinn Expulsion", source: "Quran" },
+      { reference: "As-Saffat (37:1–182)", purpose: "The Surah of Power – complete recitation for severe cases", category: "Jinn Expulsion", source: "Traditional" },
+      { reference: "An-Najm (53:1–62)", purpose: "Full Surah; rebuke of those who follow misguidance", category: "Jinn Expulsion", source: "Traditional" },
+      { reference: "Al-Qamar (54:1–55)", purpose: "The Hour has approached; recounting destroyed nations", category: "Jinn Expulsion", source: "Traditional" },
+      { reference: "At-Tariq (86:1–17)", purpose: "Full Surah; by the sky and the night comer", category: "Jinn Expulsion", source: "Traditional" },
+      // Victory & Authority
+      { reference: "Al-Fath (48:1–3)", purpose: "Clear conquest and forgiveness from Allah", category: "Victory & Authority", source: "Quran" },
+      { reference: "Al-Anfal (8:19)", purpose: "Victory is between you and us; wait, indeed we are waiting", category: "Victory & Authority", source: "Quran" },
+      { reference: "Ibrahim (14:15)", purpose: "Prayer for the destruction of oppressors", category: "Victory & Authority", source: "Quran" },
+      { reference: "Fatir (35:2)", purpose: "Whatever mercy Allah opens for people, none can withhold", category: "Victory & Authority", source: "Quran" },
+      { reference: "Al-Qasas (28:31)", purpose: "Throw down your staff; divine reassurance to Musa (AS)", category: "Victory & Authority", source: "Quran" },
+      { reference: "Ta-Ha (20:68)", purpose: "Fear not. Indeed, it is you who are superior", category: "Victory & Authority", source: "Quran" },
+      { reference: "Al-Ma'idah (5:23)", purpose: "Reliance upon Allah brings victory", category: "Victory & Authority", source: "Quran" },
+      { reference: "An-Nasr (110:1–3)", purpose: "Help of Allah and conquest has come", category: "Victory & Authority", source: "Quran" },
+      // Special Purposes
+      { reference: "Al-A'raf (7:200–201)", purpose: "Seek refuge in Allah; He is Hearing and Knowing (whisperings)", category: "Special Purposes", source: "Quran" },
+      { reference: "Al-Hadid (57:3)", purpose: "He is the First and the Last, the Ascendant and the Intimate", category: "Special Purposes", source: "Quran" },
+      { reference: "Ta-Ha (20:105)", purpose: "They ask you about the mountains; say, 'My Lord will blow them away.' (calming storms)", category: "Special Purposes", source: "Tafsir" },
+      { reference: "At-Tahrim (66:5)", purpose: "Divine authority over relationships and gatherings", category: "Special Purposes", source: "Tafsir" },
+      { reference: "Al-Muzzammil (73:20)", purpose: "Recite what is easy of the Quran; know that Allah will forgive and punish", category: "Special Purposes", source: "Quran" },
+      { reference: "Ya-Sin (36:41–44)", purpose: "Signs of Allah in the loaded ships that sail by His mercy (travel safety)", category: "Special Purposes", source: "Quran" },
+      { reference: "Ash-Shams (91:1–15)", purpose: "Success is in purifying the soul", category: "Special Purposes", source: "Quran" },
+      { reference: "Ad-Duha (93:1–11)", purpose: "Your Lord has not forsaken you.", category: "Special Purposes", source: "Quran" },
+      { reference: "Al-Inshirah (94:1–8)", purpose: "Have We not expanded for you your breast?", category: "Special Purposes", source: "Quran" },
+      // Spiritual Strength
+      { reference: "Al-Kahf (18:45)", purpose: "The parable of worldly life; reliance on Allah", category: "Spiritual Strength", source: "Quran" },
+      { reference: "Al-Hashr (59:22)", purpose: "He is Allah, other than whom there is no deity", category: "Spiritual Strength", source: "Quran" },
+      { reference: "Ghafir (40:18)", purpose: "Warn them of the approaching Day", category: "Spiritual Strength", source: "Quran" },
+      { reference: "At-Takwir (81:14–18)", purpose: "When the soul is exposed; by the retreating stars", category: "Spiritual Strength", source: "Quran" },
+      { reference: "Sad (38:1–2)", purpose: "By the Quran containing the Reminder", category: "Spiritual Strength", source: "Quran" }
+    ];
+
+    // Favorites system
+    let favorites = JSON.parse(localStorage.getItem('ruqyah_favorites') || '[]');
+    
+    // DOM elements
+    const cardsContainer = document.getElementById("cards-container");
+    const searchInput = document.getElementById("searchInput");
+    const filterContainer = document.getElementById("filter-buttons");
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
+    const resultStatsSpan = document.getElementById("resultStats");
+    const statsDashboard = document.getElementById("statsDashboard");
+    const toastEl = document.getElementById("toast");
+
+    function showToast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      setTimeout(() => toastEl.classList.remove('show'), 2000);
+    }
+
+    function saveFavorites() {
+      localStorage.setItem('ruqyah_favorites', JSON.stringify(favorites));
+      renderCards(); // refresh favorite button states
+      updateStatsDashboard();
+    }
+
+    function toggleFavorite(reference) {
+      if (favorites.includes(reference)) {
+        favorites = favorites.filter(r => r !== reference);
+        showToast(`Removed ${reference} from favorites`);
+      } else {
+        favorites.push(reference);
+        showToast(`Added ${reference} to favorites`);
+      }
+      saveFavorites();
+    }
+
+    // Debounce function
+    let debounceTimer;
+    function debounce(fn, delay) {
+      return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+
+    // Improved search with scoring
+    function getFilteredVerses() {
+      const term = searchInput.value.toLowerCase().trim();
+      const activeCat = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+      let filtered = verses.filter(v => {
+        const matchCat = activeCat === 'all' || v.category === activeCat;
+        return matchCat;
+      });
+      if (term !== "") {
+        filtered = filtered.map(v => {
+          let score = 0;
+          if (v.reference.toLowerCase().includes(term)) score += 3;
+          if (v.purpose.toLowerCase().includes(term)) score += 2;
+          if (v.category.toLowerCase().includes(term)) score += 1;
+          return { ...v, score };
+        }).filter(v => v.score > 0).sort((a,b) => b.score - a.score);
+      } else {
+        filtered = filtered.map(v => ({ ...v, score: 0 }));
+      }
+      return filtered;
+    }
+
+    function updateStatsDashboard() {
+      const totalVerses = verses.length;
+      const categoriesCount = new Set(verses.map(v => v.category)).size;
+      const favCount = favorites.length;
+      statsDashboard.innerHTML = `
+        <div class="stat-chip">📜 Total Verses: ${totalVerses}</div>
+        <div class="stat-chip">🏷️ Categories: ${categoriesCount}</div>
+        <div class="stat-chip">⭐ Favorites: ${favCount}</div>
+      `;
+    }
+
+    function updateStats(filteredCount, totalAll) {
+      const term = searchInput.value.trim();
+      const activeCat = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+      if (filteredCount === totalAll && term === '' && activeCat === 'all') {
+        resultStatsSpan.innerHTML = `✨ Showing all <strong>${totalAll}</strong> Ruqyah verses`;
+      } else {
+        resultStatsSpan.innerHTML = `📜 Showing <strong>${filteredCount}</strong> verse${filteredCount !== 1 ? 's' : ''} (of ${totalAll})`;
+      }
+    }
+
+    // Safe copy with fallback
+    function copyToClipboard(text, buttonElement) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopyFeedback(buttonElement, text);
+        }).catch(() => fallbackCopy(text, buttonElement));
+      } else {
+        fallbackCopy(text, buttonElement);
+      }
+    }
+
+    function fallbackCopy(text, buttonElement) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCopyFeedback(buttonElement, text);
+      } catch (err) {
+        showToast("Could not copy");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    let copyTimeout = null;
+    function showCopyFeedback(element, text) {
+      const originalText = element.innerHTML;
+      element.innerHTML = '✓ Copied!';
+      element.style.background = '#2b7a4b';
+      element.style.color = 'white';
+      if (copyTimeout) clearTimeout(copyTimeout);
+      copyTimeout = setTimeout(() => {
+        element.innerHTML = originalText;
+        element.style.background = '';
+        element.style.color = '';
+      }, 1600);
+    }
+
+    function renderCards() {
+      const filtered = getFilteredVerses();
+      updateStats(filtered.length, verses.length);
+      if (filtered.length === 0) {
+        cardsContainer.innerHTML = `<div class="empty-msg">
+          <span>🔍</span> <span>No verses match your search. Try: "protection", "kursi", "jinn"</span>
+          <button id="clearAllFiltersBtn" class="filter-btn" style="margin-left: 10px;">Clear filters</button>
+        </div>`;
+        const clearBtn = document.getElementById('clearAllFiltersBtn');
+        if (clearBtn) clearBtn.onclick = () => { searchInput.value = ''; document.querySelector('.filter-btn[data-category="all"]')?.click(); renderCards(); };
+        return;
+      }
+      cardsContainer.innerHTML = filtered.map(v => `
+        <div class="card" data-ref="${encodeURIComponent(v.reference)}">
+          <div class="card-header">
+            <span class="category-badge">${escapeHtml(v.category)}</span>
+            <div style="display: flex; gap: 6px;">
+              <button class="favorite-btn ${favorites.includes(v.reference) ? 'active' : ''}" data-reference="${escapeHtml(v.reference)}" aria-label="Toggle favorite">${favorites.includes(v.reference) ? '⭐' : '☆'}</button>
+              <button class="copy-btn" data-reference="${escapeHtml(v.reference)}" aria-label="Copy verse reference">📋 Copy</button>
+            </div>
+          </div>
+          <div class="reference">${escapeHtml(v.reference)}</div>
+          <div class="translation">${escapeHtml(v.purpose)}</div>
+          ${v.source ? `<div class="source-badge" style="font-size:0.7rem; margin-top:8px; color:var(--gold);">📚 ${escapeHtml(v.source)}</div>` : ''}
+        </div>
+      `).join('');
+      // attach favorite listeners
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const ref = btn.getAttribute('data-reference');
+          toggleFavorite(ref);
+        });
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    function renderFilters() {
+      const categories = ["all", ...new Set(verses.map(v => v.category))];
+      const countsMap = new Map();
+      verses.forEach(v => countsMap.set(v.category, (countsMap.get(v.category) || 0) + 1));
+      const totalVerses = verses.length;
+      filterContainer.innerHTML = categories.map(cat => {
+        let displayName = cat === 'all' ? 'All' : cat;
+        let count = cat === 'all' ? totalVerses : countsMap.get(cat) || 0;
+        return `<button class="filter-btn${cat === 'all' ? ' active' : ''}" data-category="${cat}">
+                  ${displayName} <span class="filter-count">${count}</span>
+                </button>`;
+      }).join('');
+    }
+
+    // URL sync
+    function syncUrl() {
+      const term = searchInput.value.trim();
+      const activeCat = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+      const params = new URLSearchParams();
+      if (term) params.set('search', term);
+      if (activeCat !== 'all') params.set('category', activeCat);
+      const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      history.replaceState({}, '', newUrl);
+    }
+
+    function loadFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const searchTerm = params.get('search');
+      const category = params.get('category');
+      if (searchTerm) searchInput.value = searchTerm;
+      if (category) {
+        const btn = document.querySelector(`.filter-btn[data-category="${category}"]`);
+        if (btn) btn.click();
+      }
+      renderCards();
+    }
+
+    // Dark mode
+    const themeToggle = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.textContent = '☀️';
+    }
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // Event listeners with debounced search + URL sync
+    const debouncedRender = debounce(() => { renderCards(); syncUrl(); }, 200);
+    searchInput.addEventListener('input', debouncedRender);
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      renderCards();
+      syncUrl();
+      searchInput.focus();
+    });
+    filterContainer.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards();
+      syncUrl();
+    });
+    // mobile menu outside click
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      const expanded = navLinks.classList.toggle('show');
+      menuBtn.setAttribute('aria-expanded', expanded);
+      menuBtn.textContent = expanded ? '✕' : '☰';
+    });
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('show')) {
+        navLinks.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      });
+    });
+    // copy event delegation
+    cardsContainer.addEventListener('click', (e) => {
+      const copyButton = e.target.closest('.copy-btn');
+      if (copyButton) {
+        e.stopPropagation();
+        const ref = copyButton.getAttribute('data-reference');
+        if (ref) copyToClipboard(ref, copyButton);
+      }
+    });
+    // initial
+    renderFilters();
+    loadFromUrl();
+    updateStatsDashboard();
+    // smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#" || !targetId) return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
